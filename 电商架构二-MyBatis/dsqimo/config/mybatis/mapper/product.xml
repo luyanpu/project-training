@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ProductDaoImpl">
+	<select id="count" resultType="string">
+		select count(id) from product
+	</select>
+	
+	<select id="findProByPage" resultType="Product">
+		select * from product limit #{param1},#{param2} 
+	</select>
+	
+	<select id="findProductType" resultType="ProductType">
+		select * from producttype 
+	</select>
+	
+	<delete id="productDeleteAll" parameterType="Product">
+		delete from product where id in
+		<foreach collection="list" item="pro" separator="," open="(" close=")" >
+			#{pro.id}
+		</foreach>
+	</delete>
+</mapper>
